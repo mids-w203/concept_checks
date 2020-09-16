@@ -73,7 +73,7 @@ Let's show this.
 
 ```{r}
 d <- data.frame(
-  id = 1:1e4,
+  n = 1:1e4,
   x = toss_coin(1e4)
 )
 
@@ -83,7 +83,7 @@ d <- d %>%
   )
 
 plot_not_logged <- d %>%
-  ggplot(aes(x = id, y = cumulative_mean)) + 
+  ggplot(aes(x = n, y = cumulative_mean)) + 
   geom_line() + 
   labs(
     x = 'Number of Tosses (not logged scale)', 
@@ -91,7 +91,7 @@ plot_not_logged <- d %>%
   )
 
 plot_logged <- d %>%
-  ggplot(aes(x = id, y = cumulative_mean)) + 
+  ggplot(aes(x = n, y = cumulative_mean)) + 
   scale_x_continuous(trans = 'log2') + 
   geom_line() + 
   labs(
@@ -104,7 +104,13 @@ plot_not_logged / plot_logged
 
 The WLLN is about a probability limit, and so as we add more data we'll get ever closer. 
 
+## Using Chebyshev's Inequality for the Sample Mean 
+
 But we also know a specific bound for finite $n$.  This is what we call *Chebyshev's Inequality for the Sample Mean*. 
+
+$$
+P\left[|\overline{X} - E[X] | \geq \epsilon \right] \leq \frac{V[X]}{\epsilon^2n}
+$$
 
 Chebyshev's gives us a way to reason about the probably that the sample average will be more than some **particular** $\epsilon$ away from the true expectation. 
 
@@ -114,24 +120,26 @@ Specifically, suppose that we want to know:
 
 Using Chebyshev's Inequality for the sample mean would proceed as follows: 
 
-1. First, use Theorem 3.2.5 in FOAS to write out the left-hand side of statement of Chebyshev's (note that the proof is provided right after the concept is introduced in the textbook). . 
+1. First, ask yourself the question, "What Chebyshev guarantee would I like to have?" 
 
-$$
-\begin{align*}
-  P \big[|\bar{X} - E[X]| \geq \epsilon \big] &=\\
-  P \big[|\bar{X} - E[X]| \geq 0.01 \big] &= 
-\end{align*}  
-$$
+> Would you like the probability that the distance between your sample average and the true expectation is larger than some $\epsilon$ to be 80%? 
+> 
+> Would you like this probability to be 90%? 
+> 
+> Would you like this probability to be 99%? 
 
+This is the quantity that is useful on the left-hand side of Theorem 3.2.5. 
+
+**Suppose for now that that you would like an 80% guarantee.** 
+
+2. Then, you can use the rest of the theorem to solve for what value of $\epsilon$ provides that guarantee. 
 The answer is that this probability will be less than 
 
 $$
-\begin{align*}
-  &= \frac{V[X]}{\epsilon^{2}n}
-\end{align*}
+  0.80 = \frac{V[X]}{\epsilon^{2}n}
 $$
 
-We can know the value for $V[X]$ of our coin: 
+In this particular case, we can know the value for $V[X]$ of our coin: 
 
 $$
 \begin{align*}
@@ -156,13 +164,29 @@ $$
 \end{align*} 
 $$ 
 
-And we have set $\epsilon$ to a specific value, $0.1$, so, $\epsilon^{2} = 0.01$. 
+We're seeking to solve this equation for $\epsilon$ on one side of the equation, and everything else on the other. 
+
+Returning to our original statement, we said: 
+
+$$
+\begin{align*}
+  0.80 &= \frac{V[X]}{\epsilon^2n} \\ 
+  0.80 &= \frac{0.24}{\epsilon^2n} \\ 
+  \epsilon^2 &= \frac{0.24}{0.80 \cdot n} \\ 
+  \epsilon &= \sqrt{\frac{0.24}{0.80 \cdot n}}
+\end{align*} 
+$$ 
+
+With this, we could plot what these bounds look like! Let's begin by making an object called `prob` that is our probability guarantee. 
+
+Then, let's make a new variable on our data frame that is the epsilon size for each n. 
 
 ```{r}
+prob <- 0.8
+
 d <- d %>%  
   mutate(
-    chebyshev_prob = 0.24 / (0.01 * id),
-    epsilon = sqrt(2.4 / id)
+    epsilon = sqrt(2.4 / (0.8 * n))
   )
 ```
 
@@ -172,7 +196,7 @@ Lets start to plot this with the key information that you want to communicate to
 
 ```{r}
 d %>%  
-  ggplot(aes(x = id, y = cumulative_mean)) + 
+  ggplot(aes(x = n, y = cumulative_mean)) + 
   scale_x_continuous(trans = 'log2') + 
   geom_line()
 ```
@@ -184,22 +208,21 @@ If you want to communicate this to others, you will have to take the time to pla
 - We have placed the Chebyshev bounds in the plot 
 - Kept the `cumulative_mean` line
 
-But, notice that we have pulled the `aes(x = id, y = cumulative_mean)` out from the first `ggplot` call. This is because we do not want each of the plot elements to inherit this -- instead, we want the `geom_line` to take this, but the `geom_ribbon` to take a different set of y values. 
+But, notice that we have pulled the `aes(x = n, y = cumulative_mean)` out from the first `ggplot` call. This is because we do not want each of the plot elements to inherit this -- instead, we want the `geom_line` to take this, but the `geom_ribbon` to take a different set of y values. 
 
 ```{r}
 cumulative_mean_not_logged <- d %>%  
   ggplot() + 
   geom_ribbon(
     aes(
-      x = id, 
+      x = n, 
       ymin = .6 - epsilon, 
       ymax = .6 + epsilon), 
     fill = 'steelblue', alpha = 0.8) + 
-  geom_line(aes(x = id, y = cumulative_mean), color = 'darkorange') + 
+  geom_line(aes(x = n, y = cumulative_mean), color = 'darkorange') + 
   geom_hline(yintercept = 0.6, color = 'steelblue') + 
   coord_cartesian(ylim = c(0,1)) + 
   labs(
-    title = 'Sample Average Converges in Probability to E[X]',
     x = 'Number of Samples', 
     y = expression('Sample Average')) + 
   theme_minimal()
@@ -209,6 +232,11 @@ cumulative_mean_log_transformed <- cumulative_mean_not_logged +
   
 cumulative_mean_not_logged | cumulative_mean_log_transformed  
 ```
+
+Plotted in blue here is the distance from 0.6 that is necessary to produce an `r prob` guarantee. 
+
+1. On the one hand, it this is a really great guarantee to have that makes *very, very, very* few assumptions about the data -- only that it has some finite variance. 
+2. On the other hand, this is a really weak bound. Here's what that means: if we knew more about the data generating process, we could potentially use some **other** theorem that would give us a guarantee that was tigther to the truth, given the same number of observations. 
 
 ## Theoretical Implications 
 
@@ -220,4 +248,4 @@ So long as a random variable has finite variance, then as the number of samples 
 
 This is really powerful! The only condition that we have placed on this statement is that the random variable have finite variance -- nothing else. 
 
-Through Chebyshev's Inequality for the sample mean, we can characterize how quickly the sample averages will converge toward the expected value, at the rate of $\sqrt{\frac{V[X]}{n}}$. 
+Through Chebyshev's Inequality for the sample mean, we can characterize how quickly the sample averages will converge toward the expected value, namely at the rate of $\sqrt{\frac{V[X]}{n}}$. 
