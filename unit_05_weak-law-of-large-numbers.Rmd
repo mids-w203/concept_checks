@@ -71,10 +71,12 @@ Let's show this.
 2. Then, create a new varaible called `cumulative_mean` that is the running average of the data series from the first row to the last row. This is sort of a short-cut so that we don't have to run a **lot** of coin tosses; and, in some ways this breaks the rules for the data generating process (since it is actually only *one* data generating process that we're sub-sampling from) but it gets the point across. 
 3. Third, and finally, plot the cumulative mean on the y-axis and the number of rows that are being considered on the x-axis. (Notice that you are plotting the same data, in two ways, once with a non-transformed x-axis, the other with a transformed x-axis)
 
-```{r}
+```{r make data}
+number_of_rows <- 1000
+
 d <- data.frame(
-  n = 1:1e4,
-  x = toss_coin(1e4)
+  n = 1:number_of_rows,
+  x = toss_coin(number_of_rows)
 )
 
 d <- d %>%  
@@ -186,9 +188,12 @@ prob <- 0.8
 
 d <- d %>%  
   mutate(
-    epsilon = sqrt(2.4 / (0.8 * n))
+    epsilon = sqrt(2.4 / (prob * n))
   )
 ```
+
+
+tail(d)
 
 ### Basic, Exploratory Plot
 
