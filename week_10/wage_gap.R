@@ -14,9 +14,9 @@ dt <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv") %>%
   filter(prwkstat == 2)
 
 ## build features
-dt %>%
+dt <- dt %>%
   mutate(
-    a_sex = as.factor(a_sex),
+    a_sex = as.factor(a_sex), 
     sex_two_category = factor(a_sex, levels = 1:2, labels = c('Male', 'Female')),
     wsal_val = ifelse(wsal_val < 0, NA, wsal_val),
     occup_f = factor(occup)
@@ -50,8 +50,8 @@ dt %>%
   t.test(log_wages ~ a_sex)
 
 
-dt %>%
-  ggplot(aes(x = wsal_val / 1000, fill = sex_two_category)) +
+histogram_one <- dt %>%
+  ggplot(aes(x = wsal_val / 1000, fill = a_sex)) +
   geom_density(alpha = 0.4) +
   scale_fill_manual(
         name = NULL,
@@ -67,12 +67,38 @@ dt %>%
         legend.justification = c("right", "top"),
         legend.box.just = "right",
         legend.margin = margin(6, 6, 6, 6),
-        axis.text.y = element_blank())
+      axis.text.y = element_blank())
+histogram_one
+## this feels like it could communicate more clearly... perhaps a log-transform?
 
-ggsave("wage_hist.pdf",
-       device='pdf',
-       units = 'mm', width = 128, height = 96,
-       bg = 'transparent')
+histogram_two <- dt %>%
+  ggplot(aes(x =log(wsal_val + 1), fill = a_sex)) +
+  geom_density(alpha = 0.4) +
+  scale_fill_manual(
+        name = NULL,
+        values = c("#003262", "#FDB515"),
+        labels = c("Men","Women")) +
+    xlim(0, 250) +
+    labs(
+        x = 'Total Wage and Salary (Thousands of $)',
+        y = 'Density',
+        title = 'Women Earn Less than Men') +
+    theme(
+        legend.position = c(.95, .95),
+        legend.justification = c("right", "top"),
+        legend.box.just = "right",
+        legend.margin = margin(6, 6, 6, 6),
+      axis.text.y = element_blank())
+histogram_two 
+## nope! 
+
+ggsave(
+  filename = "wage_hist.pdf",
+  plot = histogram_one,
+  device = 'pdf', bg = 'transparent',
+  units = 'mm',
+  width = 128, height = 96,
+  )
 
 mod <- ft[ , lm(wsal_val / 1000 ~ sex_f)]
 
