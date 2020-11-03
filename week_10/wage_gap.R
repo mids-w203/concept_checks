@@ -157,7 +157,6 @@ ggsave("wage_slope.pdf",
 stargazer(
     m1,
     type = 'latex', out = './model_female.tex', float = FALSE,
-    ## type = 'text',
     omit.stat = c('rsq', 'f', 'ser', 'adj.rsq'),
     digits = 0, 
     dep.var.caption = 'Dependent Variable: Pay',
@@ -166,11 +165,9 @@ stargazer(
     star.cutoffs = c(0.05, 0.01, 0.001),
     align = FALSE)
 
-length(levels(ft$occup))
 
-
-m2 <- ft[ , lm(wsal_val ~ a_sex + occup)]
-m3 <- ft[ , felm(wsal_val ~ a_sex | occup)]
+model_two   <- lm(wsal_val ~ a_sex + occup, data = dt)
+model_three <- lm(wsal_val ~ a_sex + factor(occup), data = dt)
 
 stargazer(
     m1, m2, 
