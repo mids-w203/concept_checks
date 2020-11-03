@@ -188,18 +188,18 @@ stargazer(
     align = FALSE)
 
 
-stargazer(
-    m1, m2, 
-    type = 'latex', out = './model_female_occupation_alt.tex', float = FALSE,
-    ## type = 'text',
-    omit.stat = c('rsq', 'f', 'ser', 'adj.rsq')o
-    digits = 0, 
-    dep.var.caption = 'Dependent Variable: Pay',
-    dep.var.labels.include = FALSE,
-    covariate.labels = c('Female', 'Intercept'),
-    model.names = FALSE,
-    star.cutoffs = c(0.05, 0.01, 0.001),
-    align = FALSE)
+## stargazer(
+##     m1, m2,
+##     type = 'latex', out = './model_female_occupation_alt.tex', float = FALSE,
+##     ## type = 'text',
+##     omit.stat = c('rsq', 'f', 'ser', 'adj.rsq')o
+##     digits = 0,
+##     dep.var.caption = 'Dependent Variable: Pay',
+##     dep.var.labels.include = FALSE,
+##     covariate.labels = c('Female', 'Intercept'),
+##     model.names = FALSE,
+##     star.cutoffs = c(0.05, 0.01, 0.001),
+##     align = FALSE)
 
 
 1- (15035 / mean(ft[ft$a_sex==1,]$wsal_val))
