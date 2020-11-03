@@ -171,12 +171,12 @@ model_two   <- lm(wsal_val ~ a_sex + occup, data = dt) # this model doesn't make
 model_three <- lfe::felm(wsal_val ~ a_sex | occup, data = dt) #  cheating with some advanced stuff... 
 
 stargazer(
-    m1, m2, 
+    model_one, model_two, model_three,
     type = 'latex', out = './model_female_occupation.tex', float = FALSE,
     ## type = 'text',
     omit = "occup",
     add.lines = list(
-        c('Occupation FE', 'No', 'Yes', 'Yes')
+        c('Occupation FE', 'No', 'No', 'Yes')
         ), 
     omit.stat = c('rsq', 'f', 'ser', 'adj.rsq'),
     digits = 0, 
