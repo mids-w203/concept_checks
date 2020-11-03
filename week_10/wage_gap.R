@@ -35,6 +35,11 @@ wage_salary_histogram
 wage_salary_histogram +
   scale_x_continuous(trans = 'log')
 
+## whare are the mean wages in the two-category groups?
+dt %>%
+  group_by(a_sex) %>%
+  summarize(mean_wages = mean(wsal_val))
+
 ## is there a difference in the (non-logged) wages? 
 dt %$%
   t.test(wsal_val ~ a_sex)
@@ -44,11 +49,6 @@ dt %>%
   mutate(log_wages = log(wsal_val + 1)) %$%
   t.test(log_wages ~ a_sex)
 
-ft[ , t.test(wsal_val ~ a_sex)]
-
-ft[a_sex == 2, mean(wsal_val)]
-
-ft[ , .(average_earnings = mean(wsal_val)), keyby = a_sex]
 
 ft %>%
     ggplot(aes(x = wsal_val / 1000, fill = a_sex)) +
