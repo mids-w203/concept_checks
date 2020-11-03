@@ -1,12 +1,11 @@
 library(ggplot2)
 library(dplyr)
-library(data.table)
 library(stargazer)
 library(lfe)
 
 theme_set(theme_minimal())
 
-asec <- fread("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv")
+asec <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv")
 ## names(asec)
 
 names(asec) <- tolower(names(asec))
