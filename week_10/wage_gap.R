@@ -204,12 +204,12 @@ stargazer(
 
 
 ## Estimate a model for age, and age squared.
-## again, using felm to pull off occupation fixed effects
-model_four <- felm(wsal_val ~ a_sex + a_age + I(a_age^2) | occup, data = ft)
+## again, using felm to pull off occupation fixed effects 
+model_four <- felm(wsal_val ~ a_sex + a_age + I(a_age^2) | occup, data = dt)
 
 
 stargazer(
-    m1, m2, m4,
+    model_one, model_two, model_four,
     type = 'latex', out = './model_female_occupation_age.tex', float = FALSE,
     ## type = 'text',
     omit = "occup",
@@ -225,14 +225,8 @@ stargazer(
     star.cutoffs = c(0.05, 0.01, 0.001),
     align = FALSE
 )
-
-
-
-
-
    
-m5 = lm(wsal_val ~ a_sex * a_age + occup, data = ft)
-
+model_five = felm(wsal_val ~ a_sex * a_age | occup, data = dt)
 
 stargazer(
     m5,
