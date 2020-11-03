@@ -16,7 +16,8 @@ dt %>%
   mutate(
     a_sex = as.factor(a_sex)
     sex_two_category = factor(a_sex, levels = 1:2, labels = c('Male', 'Female'))
-    wsal_val = ifelse(wsal_val < 0, NA, wsal_val)
+    wsal_val = ifelse(wsal_val < 0, NA, wsal_val),
+    occup_f = factor(occup)
   )
 
 
