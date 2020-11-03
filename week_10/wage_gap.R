@@ -154,10 +154,6 @@ ggsave("wage_slope.pdf",
        units = 'mm', width = 96, height = 96,
        bg = 'transparent')
 
-
-m1 = lm(wsal_val ~ a_sex, data = ft)
-
-
 stargazer(
     m1,
     type = 'latex', out = './model_female.tex', float = FALSE,
