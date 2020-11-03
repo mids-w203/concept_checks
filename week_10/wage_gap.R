@@ -166,8 +166,9 @@ stargazer(
     align = FALSE)
 
 
-model_two   <- lm(wsal_val ~ a_sex + occup, data = dt)
-model_three <- lm(wsal_val ~ a_sex + factor(occup), data = dt)
+model_two   <- lm(wsal_val ~ a_sex + occup, data = dt) # this model doesn't make sense -- occup should not be continuous
+# model_three <- lm(wsal-al ~ a_sex + factor(occup), data = dt)
+model_three <- lfe::felm(wsal_val ~ a_sex | occup, data = dt) #  cheating with some advanced stuff... 
 
 stargazer(
     m1, m2, 
