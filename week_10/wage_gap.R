@@ -1,16 +1,17 @@
+library(tidyverse)
+
 library(ggplot2)
-library(dplyr)
 library(stargazer)
 library(lfe)
 
 theme_set(theme_minimal())
 
-dt <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv")
-## names(dt)
+## load data
+dt <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv") %>%
+  rename_all(tolower) %>%
+  filter(prwkstat == 2)
 
-names(dt) <- tolower(names(dt))
 
-ft <- dt[prwkstat == 2,]
 
 ft[ , a_sex := as.factor(a_sex)]
 summary(ft$wsal_val)
