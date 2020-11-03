@@ -12,17 +12,16 @@ dt <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv") %>%
   filter(prwkstat == 2)
 
 ## build features
-
 dt %>%
   mutate(
     a_sex = as.factor(a_sex)
     sex_two_category = factor(a_sex, levels = 1:2, labels = c('Male', 'Female'))
+    wsal_val = ifelse(wsal_val < 0, NA, wsal_val)
   )
 
 
 summary(ft$wsal_val)
 
-ft[wsal_val < 0, wsal_val := NA]
 ft[ , hist(wsal_val)]
 
 ft[ , t.test(wsal_val ~ a_sex)]
@@ -81,7 +80,6 @@ ggsave("wage_slope.pdf",
 
 m1 = lm(wsal_val ~ a_sex, data = ft)
 
-rounder <- function(x) round(x)
 
 stargazer(
     m1,
@@ -124,7 +122,7 @@ stargazer(
     m1, m2, 
     type = 'latex', out = './model_female_occupation_alt.tex', float = FALSE,
     ## type = 'text',
-    omit.stat = c('rsq', 'f', 'ser', 'adj.rsq'),
+    omit.stat = c('rsq', 'f', 'ser', 'adj.rsq')o
     digits = 0, 
     dep.var.caption = 'Dependent Variable: Pay',
     dep.var.labels.include = FALSE,
