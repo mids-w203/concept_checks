@@ -1,6 +1,8 @@
 library(tidyverse)
-
 library(ggplot2)
+
+library(magrittr)
+
 library(stargazer)
 library(lfe)
 
@@ -29,16 +31,18 @@ wage_salary_histogram <- dt %>%
 ## there are some clear outliers on the salary scale. 
 wage_salary_histogram
 
-## a log transform makes this log-normal(ish) distributed
+## a log transform makes this log-normal(ish) distributed 
 wage_salary_histogram +
   scale_x_continuous(trans = 'log')
 
+## is there a difference in the (non-logged) wages? 
+dt %$%
+  t.test(wsal_val ~ a_sex)
 
-
-
-summary(ft$wsal_val)
-
-ft[ , hist(wsal_val)]
+## is there a difference in the (logged) wages?
+dt %>%
+  mutate(log_wages = log(wsal_val + 1)) %$%
+  t.test(log_wages ~ a_sex)
 
 ft[ , t.test(wsal_val ~ a_sex)]
 
