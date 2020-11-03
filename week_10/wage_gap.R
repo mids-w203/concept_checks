@@ -20,6 +20,21 @@ dt %>%
     occup_f = factor(occup)
   )
 
+## First summary: outcome variable
+wage_salary_histogram <- dt %>%
+  ggplot(aes(x=wsal_val)) +
+  geom_histogram() +
+  labs(title = 'Histogram of Wage Salaries')
+
+## there are some clear outliers on the salary scale. 
+wage_salary_histogram
+
+## a log transform makes this log-normal(ish) distributed
+wage_salary_histogram +
+  scale_x_continuous(trans = 'log')
+
+
+
 
 summary(ft$wsal_val)
 
@@ -94,7 +109,6 @@ stargazer(
     star.cutoffs = c(0.05, 0.01, 0.001),
     align = FALSE)
 
-ft[ , occup := as.factor(occup)]
 length(levels(ft$occup))
 
 
