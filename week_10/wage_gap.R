@@ -16,8 +16,8 @@ dt <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv") %>%
 ## build features
 dt %>%
   mutate(
-    a_sex = as.factor(a_sex)
-    sex_two_category = factor(a_sex, levels = 1:2, labels = c('Male', 'Female'))
+    a_sex = as.factor(a_sex),
+    sex_two_category = factor(a_sex, levels = 1:2, labels = c('Male', 'Female')),
     wsal_val = ifelse(wsal_val < 0, NA, wsal_val),
     occup_f = factor(occup)
   )
@@ -50,10 +50,10 @@ dt %>%
   t.test(log_wages ~ a_sex)
 
 
-ft %>%
-    ggplot(aes(x = wsal_val / 1000, fill = a_sex)) +
-    geom_density(alpha = 0.4, color = NA) + 
-    scale_fill_manual(
+dt %>%
+  ggplot(aes(x = wsal_val / 1000, fill = sex_two_category)) +
+  geom_density(alpha = 0.4) +
+  scale_fill_manual(
         name = NULL,
         values = c("#003262", "#FDB515"),
         labels = c("Men","Women")) +
@@ -68,6 +68,7 @@ ft %>%
         legend.box.just = "right",
         legend.margin = margin(6, 6, 6, 6),
         axis.text.y = element_blank())
+
 ggsave("wage_hist.pdf",
        device='pdf',
        units = 'mm', width = 128, height = 96,
