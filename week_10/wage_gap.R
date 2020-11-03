@@ -5,12 +5,12 @@ library(lfe)
 
 theme_set(theme_minimal())
 
-asec <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv")
-## names(asec)
+dt <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv")
+## names(dt)
 
-names(asec) <- tolower(names(asec))
+names(dt) <- tolower(names(dt))
 
-ft <- asec[prwkstat == 2,]
+ft <- dt[prwkstat == 2,]
 
 ft[ , a_sex := as.factor(a_sex)]
 summary(ft$wsal_val)
