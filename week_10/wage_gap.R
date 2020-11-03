@@ -6,14 +6,20 @@ library(lfe)
 
 theme_set(theme_minimal())
 
-## load data
+## load data 
 dt <- read_csv("https://mids-w203.s3-us-west-1.amazonaws.com/pppub19.csv") %>%
   rename_all(tolower) %>%
   filter(prwkstat == 2)
 
+## build features
+
+dt %>%
+  mutate(
+    a_sex = as.factor(a_sex)
+    sex_two_category = factor(a_sex, levels = 1:2, labels = c('Male', 'Female'))
+  )
 
 
-ft[ , a_sex := as.factor(a_sex)]
 summary(ft$wsal_val)
 
 ft[wsal_val < 0, wsal_val := NA]
@@ -47,8 +53,6 @@ ggsave("wage_hist.pdf",
        device='pdf',
        units = 'mm', width = 128, height = 96,
        bg = 'transparent')
-
-ft[ , sex_f := factor(a_sex, levels = c(1,2), labels = c('Male', 'Female'))]
 
 mod <- ft[ , lm(wsal_val / 1000 ~ sex_f)]
 
