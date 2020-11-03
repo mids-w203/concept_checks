@@ -202,17 +202,6 @@ stargazer(
 ##     align = FALSE)
 
 
-1- (15035 / mean(ft[ft$a_sex==1,]$wsal_val))
-
-
-hist(ft$PEHRUSLT, breaks=50)
-
-
-summary(ft$a_age)
-hist(ft$a_age)
-head(ft$a_age)
-t.test(ft$a_age ~ ft$a_sex)
-
 
 # m4 = ft[ , felm(wsal_val ~ a_sex + a_age | occup)]
 m4 = lm(wsal_val ~ a_sex + a_age + I(a_age^2) + occup, data = ft)
