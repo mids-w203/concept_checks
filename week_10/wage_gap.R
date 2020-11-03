@@ -92,31 +92,61 @@ histogram_two <- dt %>%
 histogram_two 
 ## nope! 
 
+histogram_three <- dt %>%
+  ggplot(aes(x = wsal_val / 1000, fill = a_sex)) +
+  geom_density(alpha = 0.4) +
+  scale_fill_manual(
+        name = NULL,
+        values = c("#003262", "#FDB515"),
+        labels = c("Men","Women")) +
+    xlim(0, 150) +
+    labs(
+        x = 'Total Wage and Salary (Thousands of $)',
+        y = 'Density',
+        title = 'Women Earn Less than Men') +
+    theme(
+        legend.position = c(.95, .95),
+        legend.justification = c("right", "top"),
+        legend.box.just = "right",
+        legend.margin = margin(6, 6, 6, 6),
+      axis.text.y = element_blank())
+histogram_three
+
 ggsave(
-  filename = "wage_hist.pdf",
+  filename = "wage_hist_250.pdf",
   plot = histogram_one,
+  device = 'pdf', bg = 'transparent', 
+  units = 'mm',
+  width = 128, height = 96
+  )
+ggsave(
+  filename = 'wage_hist_150.pdf',
+  plot = histogram_three,
   device = 'pdf', bg = 'transparent',
   units = 'mm',
-  width = 128, height = 96,
-  )
+  width = 128, height = 96
+)
 
-mod <- ft[ , lm(wsal_val / 1000 ~ sex_f)]
 
-ft %>%
+## Fit models for wages 
+
+model_one <- lm(wsal_val / 1000 ~ sex_two_category, data = dt)
+
+dt %>%
     sample_n(1000) %>%
-    ggplot(aes(x = sex_f, y = wsal_val / 1000, color = sex_f)) + 
-    geom_jitter(width=.2, height=0, alpha = 1) +
+    ggplot(aes(x = sex_two_category, y = wsal_val / 1000, color = sex_two_category)) +
+    geom_jitter(width = .2, height = 0, alpha = 1) +
     geom_abline(
-        slope = coef(mod)[2],
-        intercept = coef(mod)[1],
-        color = 'darkred') + 
+        slope     = coef(model_one)['sex_two_categoryFemale'],
+        intercept = coef(model_one)['(Intercept)'],
+        color     = 'darkred') +
     scale_color_manual(
         values = c("#003262", "#FDB515")) +     
     ylim(0,250) +
     labs(
-        x = NULL,
-        y = 'Total Wage and Salary (Thousands of $)',
-        title = 'Regression View of Wage Gap',
+        x        = NULL,
+        y        = 'Total Wage and Salary (Thousands of $)',
+        title    = 'Regression View of Wage Gap',
         subtitle = 'Random Subset of 1,000 Data Points') +
     theme(legend.position = 'none')
 ggsave("wage_slope.pdf",
