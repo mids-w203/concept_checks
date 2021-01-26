@@ -1,0 +1,36 @@
+---
+title: "Simulating a t-Statistic"
+output: html_notebook
+---
+
+In this activity, we'll simulate the distribution of the t-statistic.
+
+First, let's assume that we know the true population standard deviation.  For this exercise, it will always be 5.  The following function takes a sample and computes a z-statistic for a reference mean of 0, using the true population standard deviation.
+
+```{r}
+statistic = function(sample){
+  sample_mean = mean(sample)
+  n = length(sample)
+  return(sample_mean / (5 / sqrt(n)))
+}
+```
+
+Next, the following code simulates an experiment many times.  In each experiment, a sample of size n is drawn from a normal distribution with mean 0 and standard deviation 5.  The a statistic is calculated using the above function.  Finally, the results are plotted against the standard normal curve, in red.
+
+```{r}
+library(ggplot2)
+n = 7
+data = data.frame(statistic = replicate(100000, statistic(rnorm(n, 0, 5))))
+ggplot(data, aes(x = statistic)) + 
+    geom_histogram(aes(y =..density..),
+                   breaks = seq(-3, 3, by = .1), 
+                   colour = "black", 
+                   fill = "white") +
+   xlim(c(-3,3)) +
+stat_function(fun = dnorm, color = 'red')
+```
+
+1. Change the statistic function above so that it does not use the true population standard deviation (which a researcher never knows), but instead uses the sample standard deviation.
+
+2. Compare the resulting distribution against the normal curve.  See how the difference changes if you increase n and decrease n.
+
