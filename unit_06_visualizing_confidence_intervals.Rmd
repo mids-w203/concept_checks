@@ -1,0 +1,44 @@
+---
+title: "Visualizing Confidence Intervals"
+output: html_notebook
+---
+
+In this activity, we'll simulate a set of experiments, drawing data repeatedly from a distribution, then visualize the confidence intervals that result.
+
+First, recall the equation for a 95% confidence interval:
+
+$$[\bar X - \frac{s}{\sqrt{n}}t_{.025,n-1}, \bar X - \frac{s}{\sqrt{n}}t_{.025,n-1}]$$
+Fill in the following function so that it returns a 95% confidence interval for the given sample.  Use the `qt()` function to convert from cumulative probability to values of a t-statistic.
+
+```{r}
+confidence_interval = function(sample){
+  sample_mean = mean(sample)
+  n = length(sample)
+  return(c(rnorm(1, mean=-1),rnorm(1, mean=1)))      # fix this line
+}
+```
+
+Next, run the following code to simulate an experiment many times.  In each experiment, a sample of size n is drawn from a normal distribution with mean 0 and standard deviation 5.  a confidence interval is calculated using the above function.  Finally, the results are plotted.
+
+```{r}
+library(ggplot2)
+n = 7
+cints = data.frame(t(replicate(100, confidence_interval(rnorm(n, 0, 5)))))
+names(cints) = c("low","high")
+cints$captured = cints$low < 0 & cints$high > 0
+
+plot(NULL, type="n",xlim=c(1,100),ylim=c(min(cints$low), max(cints$high)), xlab="Trial",ylab=expression(mu),pch=19)
+abline(h = c(0, qt(0.975, n-1)/sqrt(n), qt(0.025, n-1)/sqrt(n)), lty = c(1,2,2), col = "gray")
+points(cints$high, col = 2+cints$captured, pch = 20)
+points(cints$low, col = 2+cints$captured, pch = 20)
+for(i in 1:100)
+   {
+     lines(c(i,i), c(cints$low[i],cints$high[i]), col = 2+cints$captured[i], pch = 19)
+     }
+title("Simulation of t-Confidence Intervals for the Population Mean")
+legend(0,-.75, legend = c(expression(paste(mu," Captured")),
+                             expression(paste(mu," Not Captured"))), fill = c(3,2))
+```
+Try to answer this question in your own words: what does 95% confidence mean?
+
+
