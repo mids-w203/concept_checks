@@ -188,7 +188,7 @@ prob <- 0.9999
 
 d <- d %>%  
   mutate(
-    epsilon = sqrt(2.4 / (prob * n))
+    epsilon = sqrt(0.24 / (prob * n))
   )
 ```
 
