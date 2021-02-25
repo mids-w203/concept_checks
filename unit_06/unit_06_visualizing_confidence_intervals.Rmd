@@ -1,0 +1,113 @@
+---
+title: "Visualizing Confidence Intervals"
+output: html_document
+---
+
+```{r load packages}
+library(dplyr)
+library(ggplot2)
+```
+
+
+In this activity, we'll simulate a set of experiments, drawing data repeatedly from a distribution, then visualize the confidence intervals that result.
+
+First, recall the equation for a 95% confidence interval:
+
+$$
+  [
+    \overline{X} - \frac{s}{\sqrt{n}}t_{.025,n-1}, 
+    \overline{X} + \frac{s}{\sqrt{n}}t_{.025,n-1}
+  ]
+$$
+
+Read each of the lines in the following function, and note how they map from the math above, into applying the math in this function. 
+
+```{r fill out confidence interval function}
+confidence_interval = function(sample) {
+  
+  sample_mean    <- mean(sample)
+  sample_sd      <- sqrt(var(sample))
+  n              <- length(sample)
+  critical_value <- qt(0.025, df=n-1)
+  
+  low_ci  <- sample_mean + (sample_sd / sqrt(n)) * critical_value
+  high_ci <- sample_mean - (sample_sd / sqrt(n)) * qt(0.025, df=n-1)
+
+  return(
+    c(low_ci, high_ci)
+    )      
+}
+```
+
+```{r}
+one_sample <- rnorm(n = 5, mean = 0, sd = 5)
+confidence_interval(one_sample)
+```
+
+
+Next, run the following code to simulate an experiment many times.  
+
+- In each experiment, a sample of size `n` is drawn from a normal distribution with mean 0 and standard deviation 5.
+- Using the `confidence_interval` function you filled in, we produce 95% confidence intervals. 
+- Finally, we plot these intervals. 
+
+```{r make plots}
+
+## There is no code for you to change in this plot. 
+
+run_plots <- function(number_of_units = 5) { 
+  ## This function takes an argument that is the number of draws for the population
+  ## and returns a plot for the confidence intervals generated from 100 simulated
+  ## samples of that size. 
+  
+  confidence_intervals <- data.frame(
+    'low'      = rep(NA, 100), 
+    'high'     = rep(NA, 100), 
+    'captured' = rep(NA, 100)
+    )
+  
+  for(i in 1:100) {
+    our_sample <- rnorm(n = number_of_units, mean = 0, sd = 5)
+    confidence_intervals[i, c('low', 'high')] <- confidence_interval(our_sample)
+  }
+  
+  confidence_intervals <- confidence_intervals %>% 
+    mutate(captured = low < 0 & high > 0)
+  
+  plot(
+    NULL, 
+    type="n", pch=19,
+    xlim=c(1,100),
+    ylim=c(min(confidence_intervals$low), max(confidence_intervals$high)),
+    xlab="Trial", ylab=expression(mu))
+  abline(
+    h = c(0, qt(0.975, number_of_units-1)/sqrt(number_of_units), 
+          qt(0.025, number_of_units-1)/sqrt(number_of_units)), 
+    lty = c(1,2,2), 
+    col = "gray")
+  
+  points(confidence_intervals$high, col = 2+confidence_intervals$captured, pch = 20)
+  points(confidence_intervals$low,  col = 2+confidence_intervals$captured, pch = 20)
+
+  for(i in 1:100) {
+    lines(
+      c(i,i), c(confidence_intervals$low[i],confidence_intervals$high[i]), 
+      col = 2+confidence_intervals$captured[i], pch = 19)
+  }
+  
+  title("Simulation of t-Confidence Intervals for the Population Mean")
+  legend(
+    0,-.75, 
+    legend = c(
+      expression(paste(mu," Captured")),
+      expression(paste(mu," Not Captured"))), 
+    fill = c(3,2)
+    )
+}
+```
+
+```{r}
+run_plots()
+```
+
+Try to answer this question in your own words: what does 95% confidence mean?
