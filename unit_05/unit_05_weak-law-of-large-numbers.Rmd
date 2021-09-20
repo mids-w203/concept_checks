@@ -184,7 +184,7 @@ With this, we could plot what these bounds look like! Let's begin by making an o
 Then, let's make a new variable on our data frame that is the epsilon size for each n. 
 
 ```{r}
-prob <- 0.9999
+prob <- 0.9
 
 d <- d %>%  
   mutate(
