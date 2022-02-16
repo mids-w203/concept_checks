@@ -47,7 +47,7 @@ toss_coin <- function(times, coins, prob_of_heads) {
 
 Then, we can sample from this coin's distribution by tossing it a small number of times.
 
-```{r}
+```{r toss several times, results = 'hold'}
 toss_coin(times=1, coins=1, prob_of_heads = 0.6)
 toss_coin(times=1, coins=1, prob_of_heads = 0.6)
 toss_coin(times=1, coins=1, prob_of_heads = 0.6)
@@ -56,7 +56,7 @@ toss_coin(times=1, coins=1, prob_of_heads = 0.6)
 
 Suppose that we wanted to toss more than one coin? It would, obviously get pretty cumbersome if we had to issue this `toss_coin(times=1, coins=1)` command say, 1000 times. Lucky for us, we've written the function so that it generalizes to more coins! To toss ten coins, we can call for `toss_coin(times=1, coins=10)`, and for a million, `toss_coin(times=1, coins=1e6)`. 
 
-```{r}
+```{r demo two types of tosses, results = 'hold'}
 toss_coin(times=1, coins=10, prob_of_heads=0.6)
 toss_coin(times=10, coins=1, prob_of_heads=0.6)
 ```
@@ -81,7 +81,7 @@ To create the data, do the following
 
 ```{r create toss data}
 toss_many_coins <- function(times, coins, prob_of_heads) { 
-  toss_data <- data.frame(id=1:coins) %>%
+  toss_data_ <- data.frame(id=1:coins) %>%
     mutate(
       coins = 1:n(), 
       heads = toss_coin(times=1:n(), coins=coins, prob_of_heads=prob_of_heads), 
@@ -93,14 +93,16 @@ toss_data <- toss_many_coins(times=1, coins=1000, prob_of_heads=0.6)
 
 Notice a few neat things about this process of creating data, using `dplyr`. First, we've built the dataframe to have 1,000 rows, indexed by a column that we have called `id`. Unlike numpy over in python, this `id` column doesn't have any special properties, and we could have named it anything. Second, within the `mutate` call, we're making new data. One surprising behavior in this call is that you're able to create new columns, predicated on the existence of other columns, that are made at the same time. 
 
-This isn't a _pure_ inception event, because the newly created variables need to be ordered chronologically within the mutate call. This means that the following code would not work: 
+Also, notice that within the function I called the object that is going to be returned `toss_data_` with an `_` at the end. This doesn't *do* anything, per se, but it does help to distinguish between the results *internal* to the function, and what we're going to return out to the global namespace. Essentially, this keeps us from confusing things as humans, which means that the computer will also not be confused. 
 
-```{r code that will not work}
-# data.frame(id=1:1000) %>%
-#   mutate(
-#     heads = toss_coin(times=tosses), 
-#     tosses = 1:n(), 
-#     average = heads / tosses)
+This isn't a *pure* inception event, because the newly created variables need to be ordered chronologically within the mutate call. This means that the following code would not work: 
+
+```{r code that will not work, eval=FALSE}
+data.frame(id=1:1000) %>%
+  mutate(
+    heads = toss_coin(times=tosses),
+    tosses = 1:n(),
+    average = heads / tosses)
 ```
 
 We can view the first six rows of this data by calling for the `head()` of the dataframe, and see that things seem sensible. 
@@ -126,7 +128,7 @@ toss_data %>%
   )
 
 coin_plot <- function(times, coins, prob_of_heads) { 
-  coin_plot <- toss_many_coins(times=times, coins=coins, prob_of_heads=prob_of_heads) %>% 
+  coin_plot_ <- toss_many_coins(times=times, coins=coins, prob_of_heads=prob_of_heads) %>% 
     ggplot() + 
     aes(x=coins, y=average) + 
     geom_point(color = berkeley_blue, size = 0.1) +
@@ -166,6 +168,7 @@ plot_1.0 / plot_0.9 / plot_0.2 +
   plot_layout(guides = 'collect')
 ```
 
+What do you notice about the rate of convergence in probability between the different plots? Do some of them seem to be moving toward the true population expectation faster than others? Why is this? What is the variance of a Bernoulli random variable with $P(H) = 0.9$, compared to one with $P(H) = 0.6$? 
 
 ## Weak Law of Large Numbers 
 
