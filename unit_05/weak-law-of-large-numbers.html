@@ -187,19 +187,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinom</span>(<span class="at">n =</span> times, <span class="at">size =</span> coins, <span class="at">prob =</span> prob_of_heads)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
 <p>Then, we can sample from this coin’s distribution by tossing it a small number of times.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 1
+## [1] 1
+## [1] 0</code></pre>
 <p>Suppose that we wanted to toss more than one coin? It would, obviously get pretty cumbersome if we had to issue this <code>toss_coin(times=1, coins=1)</code> command say, 1000 times. Lucky for us, we’ve written the function so that it generalizes to more coins! To toss ten coins, we can call for <code>toss_coin(times=1, coins=10)</code>, and for a million, <code>toss_coin(times=1, coins=1e6)</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">10</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>## [1] 8</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">10</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>##  [1] 1 0 0 1 1 1 0 1 1 0</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">10</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">10</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span></code></pre></div>
+<pre><code>## [1] 5
+##  [1] 1 1 0 0 0 1 0 1 0 0</code></pre>
 <p>Notice that if we increase the number of <code>times</code> it is like tossing the same coin a larger number of times; and if we increase the number of coins, it is like increaseing the number of coins that we are tossing at any single time. These actually have the same interpretation, since all the tosses are independent of all the other tosses, but it <em>does</em> change the way the data is represented to us.</p>
 </div>
 <div id="tossing-more-coins" class="section level2" number="1.3">
@@ -215,65 +215,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>First, make a dataframe that has 1,000 rows. Let the first column, <code>coins</code> index the number of coins that were tossed in that simulation. Let the second column <code>heads</code> report the number of heads that came up. And, let the third column <code>average</code> report the number of heads as a proportion of the number of tosses.</li>
 </ol>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>toss_many_coins <span class="ot">&lt;-</span> <span class="cf">function</span>(times, coins, prob_of_heads) { </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  toss_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id=</span><span class="dv">1</span><span class="sc">:</span>coins) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">coins =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">heads =</span> <span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="at">coins=</span>coins, <span class="at">prob_of_heads=</span>prob_of_heads), </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">average =</span> heads <span class="sc">/</span> coins)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>toss_data <span class="ot">&lt;-</span> <span class="fu">toss_many_coins</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>toss_many_coins <span class="ot">&lt;-</span> <span class="cf">function</span>(times, coins, prob_of_heads) { </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  toss_data_ <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id=</span><span class="dv">1</span><span class="sc">:</span>coins) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">coins =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">heads =</span> <span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="at">coins=</span>coins, <span class="at">prob_of_heads=</span>prob_of_heads), </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">average =</span> heads <span class="sc">/</span> coins)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>toss_data <span class="ot">&lt;-</span> <span class="fu">toss_many_coins</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span></code></pre></div>
 <p>Notice a few neat things about this process of creating data, using <code>dplyr</code>. First, we’ve built the dataframe to have 1,000 rows, indexed by a column that we have called <code>id</code>. Unlike numpy over in python, this <code>id</code> column doesn’t have any special properties, and we could have named it anything. Second, within the <code>mutate</code> call, we’re making new data. One surprising behavior in this call is that you’re able to create new columns, predicated on the existence of other columns, that are made at the same time.</p>
+<p>Also, notice that within the function I called the object that is going to be returned <code>toss_data_</code> with an <code>_</code> at the end. This doesn’t <em>do</em> anything, per se, but it does help to distinguish between the results <em>internal</em> to the function, and what we’re going to return out to the global namespace. Essentially, this keeps us from confusing things as humans, which means that the computer will also not be confused.</p>
 <p>This isn’t a <em>pure</em> inception event, because the newly created variables need to be ordered chronologically within the mutate call. This means that the following code would not work:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data.frame(id=1:1000) %&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     heads = toss_coin(times=tosses), </span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     tosses = 1:n(), </span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     average = heads / tosses)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">id=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">heads =</span> <span class="fu">toss_coin</span>(<span class="at">times=</span>tosses),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">tosses =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">average =</span> heads <span class="sc">/</span> tosses)</span></code></pre></div>
 <p>We can view the first six rows of this data by calling for the <code>head()</code> of the dataframe, and see that things seem sensible.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(toss_data)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(toss_data)</span></code></pre></div>
 <pre><code>##   id coins heads   average
-## 1  1     1     1 1.0000000
-## 2  2     2     2 1.0000000
-## 3  3     3     3 1.0000000
-## 4  4     4     2 0.5000000
-## 5  5     5     1 0.2000000
-## 6  6     6     4 0.6666667</code></pre>
+## 1  1     1     0 0.0000000
+## 2  2     2     1 0.5000000
+## 3  3     3     2 0.6666667
+## 4  4     4     4 1.0000000
+## 5  5     5     3 0.6000000
+## 6  6     6     6 1.0000000</code></pre>
 <p>But, simply looking at the rows of data isn’t presenting this data in its most compelling way. Instead, this is absolutely the place for a plot.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>toss_data <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>coins, <span class="at">y=</span>average) <span class="sc">+</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> berkeley_blue, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fl">0.6</span>), <span class="at">color =</span> california_gold) <span class="sc">+</span> </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&#39;Coin toss averages vs. sample size&#39;</span>, </span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&#39;As sample size increases, sample averages are closer to 0.6&#39;</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&#39;Number of tosses&#39;</span>, </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&#39;Average number of heads&#39;</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>toss_data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>coins, <span class="at">y=</span>average) <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> berkeley_blue, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fl">0.6</span>), <span class="at">color =</span> california_gold) <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&#39;Coin toss averages vs. sample size&#39;</span>, </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&#39;As sample size increases, sample averages are closer to 0.6&#39;</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&#39;Number of tosses&#39;</span>, </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&#39;Average number of heads&#39;</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="unit_05_weak-law-of-large-numbers_files/figure-html/plot%20the%20toss%20data-1.png" width="672" /></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>coin_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(times, coins, prob_of_heads) { </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  coin_plot <span class="ot">&lt;-</span> <span class="fu">toss_many_coins</span>(<span class="at">times=</span>times, <span class="at">coins=</span>coins, <span class="at">prob_of_heads=</span>prob_of_heads) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span>coins, <span class="at">y=</span>average) <span class="sc">+</span> </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> berkeley_blue, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>prob_of_heads), <span class="at">color =</span> california_gold) <span class="sc">+</span> </span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lims</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&#39;transparent&#39;</span>, <span class="at">color =</span> <span class="cn">NA</span>), </span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&#39;Coin toss averages vs. sample size&#39;</span>, </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="fu">sprintf</span>(<span class="st">&#39;As sample size increases, sample averages are closer to %.2f&#39;</span>, prob_of_heads),</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">&#39;Number of tosses&#39;</span>, </span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">&#39;Average number of heads&#39;</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="dv">1</span>)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.6</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>coin_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(times, coins, prob_of_heads) { </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  coin_plot_ <span class="ot">&lt;-</span> <span class="fu">toss_many_coins</span>(<span class="at">times=</span>times, <span class="at">coins=</span>coins, <span class="at">prob_of_heads=</span>prob_of_heads) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span>coins, <span class="at">y=</span>average) <span class="sc">+</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> berkeley_blue, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>prob_of_heads), <span class="at">color =</span> california_gold) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lims</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&#39;transparent&#39;</span>, <span class="at">color =</span> <span class="cn">NA</span>), </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&#39;Coin toss averages vs. sample size&#39;</span>, </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="fu">sprintf</span>(<span class="st">&#39;As sample size increases, sample averages are closer to %.2f&#39;</span>, prob_of_heads),</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">&#39;Number of tosses&#39;</span>, </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">&#39;Average number of heads&#39;</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="dv">1</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.6</span></span></code></pre></div>
 <p><img src="unit_05_weak-law-of-large-numbers_files/figure-html/plot%20the%20toss%20data-2.png" width="672" /></p>
 <p>This seems to be doing what we want it to do! What do you think will happen if the probability of success is much higher?</p>
 <ul>
@@ -285,13 +286,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="plot-distinct-distributions" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Plot distinct distributions</h2>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_1<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">1.0</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.9</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">0.9</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">0.2</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plot_1<span class="fl">.0</span> <span class="sc">/</span> plot_0<span class="fl">.9</span> <span class="sc">/</span> plot_0<span class="fl">.2</span> <span class="sc">+</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&#39;collect&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plot_1<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">1.0</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.9</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">0.9</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plot_0<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">coin_plot</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1000</span>, <span class="at">prob_of_heads=</span><span class="fl">0.2</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plot_1<span class="fl">.0</span> <span class="sc">/</span> plot_0<span class="fl">.9</span> <span class="sc">/</span> plot_0<span class="fl">.2</span> <span class="sc">+</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&#39;collect&#39;</span>)</span></code></pre></div>
 <p><img src="unit_05_weak-law-of-large-numbers_files/figure-html/many%20plots-1.png" width="672" /></p>
+<p>What do you notice about the rate of convergence in probability between the different plots? Do some of them seem to be moving toward the true population expectation faster than others? Why is this? What is the variance of a Bernoulli random variable with <span class="math inline">\(P(H) = 0.9\)</span>, compared to one with <span class="math inline">\(P(H) = 0.6\)</span>?</p>
 </div>
 <div id="weak-law-of-large-numbers-1" class="section level2" number="1.5">
 <h2><span class="header-section-number">1.5</span> Weak Law of Large Numbers</h2>
@@ -407,7 +409,7 @@ P\left[|\overline{X} - E[X] | \geq 0.01 \right] \leq \frac{.24}{0.01n}
     &amp; \leq \frac{0.024}{\epsilon^2} &amp; (\text{Divide by 10})
   \end{aligned}
 \]</span></p>
-<p><img src="unit_05_weak-law-of-large-numbers_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="unit_05_weak-law-of-large-numbers_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Reason about this plot:</p>
 <ol style="list-style-type: decimal">
 <li>If you take only <strong>one sample</strong>, and return the sample average, it is just the same as drawing a single data point. Notice that this produces the same result as <em>Theorem 2.1.18</em> in <em>Foundations of Agnostic Statistics</em>.
@@ -417,10 +419,10 @@ P\left[|\overline{X} - E[X] | \geq 0.01 \right] \leq \frac{.24}{0.01n}
 </ol></li>
 <li>If you take <strong>one-thousand samples</strong> then we get much stronger guarantees. Essentially, Chebyshev’s provides a guarantee that the probability of generating a sample average that is more than <span class="math inline">\(0.15\)</span> units from 0.6 is <span class="math inline">\(15\%\)</span>. Because we know about the distribution, we can actually calculate the probability of drawing <span class="math inline">\(\overline{X}_{(1000)} &gt; 0.64\)</span> or <span class="math inline">\(\overline{X}_{(1000)} &lt; 0.56\)</span>. Or, we can simulate it!</li>
 </ol>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>one_thousand_samples <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="at">size=</span><span class="dv">1000</span>, <span class="at">prob=</span><span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">1000</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">mean</span>(one_thousand_samples <span class="sc">&lt;=</span> <span class="fl">0.56</span>) <span class="sc">+</span> <span class="fu">mean</span>(one_thousand_samples <span class="sc">&gt;=</span> <span class="fl">0.64</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>probs</span></code></pre></div>
-<pre><code>## [1] 0.01122</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>one_thousand_samples <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="at">size=</span><span class="dv">1000</span>, <span class="at">prob=</span><span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">1000</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">mean</span>(one_thousand_samples <span class="sc">&lt;=</span> <span class="fl">0.56</span>) <span class="sc">+</span> <span class="fu">mean</span>(one_thousand_samples <span class="sc">&gt;=</span> <span class="fl">0.64</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>probs</span></code></pre></div>
+<pre><code>## [1] 0.01056</code></pre>
 <p>We interpret this in the following way:</p>
 <ul>
 <li>The Chebyshev Inequality for the sample average says that the probability of getting a sample average that is more than <span class="math inline">\(0.04\)</span> away from the true population expectation of <span class="math inline">\(0.60\)</span> is <span class="math inline">\(0.15\)</span>, or <span class="math inline">\(15\%\)</span>. This is a nice guarantee to have, and one that exists no matter the distribution of the random variable.</li>
@@ -458,13 +460,13 @@ P\left[|\overline{X} - E[X] | \geq 0.01 \right] \leq \frac{.24}{0.01n}
 \]</span></p>
 <p>And so, Chebyshev says that if we draw 30 samples, the probability of generating a sample average that is larger than <span class="math inline">\(0.8\)</span>, or smaller than <span class="math inline">\(0.4\)</span> is <span class="math inline">\(0.2\)</span>.</p>
 <p>To evaluate this guarantee, again simulate a series of draws with eight coins being tossed.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>thirty_tosses <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">30</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(thirty_tosses <span class="sc">&lt;</span> <span class="fl">0.8</span>) <span class="sc">-</span> <span class="fu">mean</span>(thirty_tosses <span class="sc">&lt;</span> <span class="fl">0.4</span>)</span></code></pre></div>
-<pre><code>## [1] 0.9754</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>thirty_tosses <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">30</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(thirty_tosses <span class="sc">&lt;</span> <span class="fl">0.8</span>) <span class="sc">-</span> <span class="fu">mean</span>(thirty_tosses <span class="sc">&lt;</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.974</code></pre>
 <p>We see that Chebyshev is actually requiring us to take more samples than are actually necessary, if we knew the actual Bernoulli distribution that underlies the data generating process. Indeed, after a little bit of trial and error, I was able to figure out that about nine samples is enough data to provide this guarantee.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nine_tosses <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">9</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">9</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(nine_tosses <span class="sc">&lt;</span> <span class="fl">0.8</span>) <span class="sc">-</span> <span class="fu">mean</span>(nine_tosses <span class="sc">&lt;</span> <span class="fl">0.4</span>)</span></code></pre></div>
-<pre><code>## [1] 0.8359</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nine_tosses <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">9</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">9</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(nine_tosses <span class="sc">&lt;</span> <span class="fl">0.8</span>) <span class="sc">-</span> <span class="fu">mean</span>(nine_tosses <span class="sc">&lt;</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.8317</code></pre>
 </div>
 </div>
             </section>
