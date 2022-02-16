@@ -1,0 +1,13 @@
+name: sampling_kde
+title: sampling_kde
+username:
+account: mids-203
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2276496
+bundleId: 3128835
+url: https://mids-203.shinyapps.io/sampling_kde/
+when: 1589144400.28713
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Icon
