@@ -1,24 +1,41 @@
 ---
-title: "hypothesis_test_practice_activity"
+title: "Hypothesis Test Practice Activity"
 author: "Alex Hughes"
 date: "10/4/2021"
-output: html_document
+output: bookdown::gitbook
 ---
+
+# Hypothesis Test Practice Activity
+
+In this short activity, you're going to write, and execute a short series of hypothesis tests using the `R` estimating framework. 
+
+The data that you will be using comes from *Tidy Tuesday* and is about the costs of university education for undergraduates. 
+
+This data collection effort is described in detail [on Github](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-10/readme.md#tuition_costcsv), but includes the following tables: 
+
+- `tuition_cost`
+- `tuition_income` 
+- `historial_tuition` 
+- `salary_potential` 
+- `diversity_school` 
+
+We are going to ask as series of questions that can be answered with the constrained set of tests that we have available to use from the course. 
+
+For each of the questions, the data *is* available, but you might have to join a table or two, recode a variable or two, or otherwise do a little bit of data work to get the data ready to run the test. 
+
+For each test that you conduct, please (a) evaluate the assumptions of the test to see if the data satisfy these assumptions; (b) state the null hypothesis that is being evaluated; (c) state the criteria that would lead you to reject the null hypothesis; (d) conduct and interpret the test; and (e) tell us whether the difference you observe between the groups is an *important* one. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r package loads, message=FALSE}
+```{r package loads, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(magrittr)
+library(testthat)
 ```
 
-In this short activity, you're going to write, and execute a short series of hypothesis tests using the `R` estimating framework. The data that you will be using comes from *Tidy Tuesday* and is about the costs of University education for undergraduates. 
-
-This data collection effort is described in detail [on Github](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-10/readme.md). What we're going to ask you do start with is a very constrained set of tests that you might conduct with this data. If you're interested, there is much **much** more that you could investigate! 
-
-```{r read data} 
+```{r read data, message=FALSE} 
 base_url <- 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/'
 
 tuition_cost       <- read_csv(file = paste0(base_url, 'tuition_cost.csv'))
@@ -27,7 +44,7 @@ salary_potential   <- read_csv(file = paste0(base_url, 'salary_potential.csv'))
 historical_tuition <- read_csv(file = paste0(base_url, 'historical_tuition.csv'))
 diversity_school   <- read_csv(file = paste0(base_url, 'diversity_school.csv'))
 ```
-```{r}
+```{r show head of tuition data}
 head(tuition_income)
 ```
 
@@ -35,43 +52,153 @@ head(tuition_income)
 
 What was the cost of tuition for the 1985-1986 school year, in current dollars, for public schools? 
 
-```{r}
+```{r show tuition cost in 1985}
 ## this query will return a list of the costs for all institution types. 
 historical_tuition %>% 
-  filter(
-    year == '1985-86' & 
-      tuition_type == 'All Current')
+  filter(year == '1985-86' & tuition_type == 'All Current')
+```
 
-## add a filter to this query to return only the rows for public schools 
-## once you're able to add this filter, also add a `select()` verb to your 
-## code (on a new line, after a new pipe) so that saved into the object 
-## public_school_cost_1985 is only `tuition_cost`.  
+Can you directly select the values that are shown in this table? Specifically, suppose that you are interested in the following question: 
 
+> Has the cost of tuition for public schools changed since 1985? 
+
+In order to accomplish this, start from the query written above, but add additional conditions to `filter` on, and also `select` only the columns that you are interested in. 
+
+Once you have formulated your "query", save the resulting values into a numeric object that is called `public_school_cost_1985`. Note that this will require you to convert the type from a data.frame to a numeric value. 
+
+```{r select only public school tuition}
 public_school_cost_1985 <- historical_tuition %>% 
   filter(
-    year == '1985-86' & 
-      tuition_type == 'All Current' & 
-      type == 'Public') %>% 
+    year == '1985-86' & tuition_type == 'All Current' & type == 'Public') %>% 
   select(tuition_cost) %>% 
   as.numeric() # This last line is to store the value outside a data.frame.
+```
 
+```{r test result}
 ## so that you can check your results, the value should be $3571.
+test_that(
+  'public school tuition is $3571', 
+  expect_equal(public_school_cost_1985, 3571)
+)
+```
+
+Now then, using data that is available to you, please test whether public school tuition has changed from 1985 to the present. In order to do you, you will have to select the appropriate rows and columns of data, and conduct the appropriate test for this data. 
+
+1. What is the appropriate test? 
+2. What are the assumptions for this test? 
+3. Are these assumptions for the test satisfied in this case?
+
+```{r}
+tuition_cost %>% 
+  filter(type == 'Public') %>% 
+  select(in_state_tuition) %$%
+  t.test(
+    x=in_state_tuition, 
+    mu=public_school_cost_1985
+    )
+```
+
+1. Are the tuition costs different? 
+2. Is this a big difference or a little difference? What makes you think this? 
+
+# Two-Sample t-test 
+
+Do schools whose students are more diverse charge higher or lower tuition? For the purposes of this test, define a diverse school to be a school where more than 40% of its student body identify as members of historically under-represented groups. 
+
+[UC Berkeley defines](https://diversity.berkeley.edu/reports-data/diversity-data-dashboard) under-represented groups to be groups who identify as: 
+
+- Black or African-American 
+- Chicano or Latino 
+- Native American / Alaska Native 
+- Pacific Islander
+
+```{r create diverse school indicator}
+diverse_school <- diversity_school %>% 
+  mutate(urm = case_when(
+    category == 'American Indian / Alaska Native' ~ 1, 
+    category == 'Black' ~ 1, 
+    category == 'Hispanic' ~ 1, 
+    category == 'Native Hawaiian / Pacific Islander' ~ 1, 
+    TRUE ~ 0)) %>% 
+  filter(urm == 1) %>%
+  group_by(name) %>% 
+  summarise(
+    urm_percentage = sum(enrollment) / mean(total_enrollment)) %>% 
+  mutate(diverse_school = urm_percentage >= 0.40)
+```
+
+```{r plot school urm distribution}
+diverse_school %>% 
+  filter(urm_percentage < 1) %>% 
+  ggplot() + 
+  aes(x = urm_percentage) + 
+  geom_histogram()
 ```
 
 ```{r}
 tuition_cost %>% 
-  filter(type == 'Public') %$% ## this 'pipe-like' operator comes from magrittr
-                               ## and exposes the variable, outside a data.frame
-  t.test(in_state_tuition, mu = public_school_cost_1985)
-
-?%$%
+  left_join(diverse_school) %$%
+  t.test(in_state_total ~ diverse_school)
 ```
-
-# Two-Sample t-test 
 
 # Paired t-test 
 
+Do in-state, or out-of-state students pay more for tuition? To begin, create a scatter plot using the `tuition_cost` data. 
+
+- On the x-axis plot the `in_state_total` tuition
+- On the y-axis plot the `out_of_state_total` tuition
+- Color the points of the plot by the `type` of school. (If it helps, you may filter out the "other" types of schools). 
+- If this plot would be enhanced by showing points on different sets of axes, you might consider using the `fact_grid()` layer to your plot, and set either the `rows` or the `cols` argument of this layer to take in the variable `type` using the call `facet_grid(cols = vars(type))`. 
+
+```{r}
+tuition_cost %>% 
+  filter(type %in% c('For Profit', 'Private', 'Public')) %>%
+  ggplot() +  
+  aes(x=in_state_total, y=out_of_state_total, color=type) + 
+  geom_point(alpha = 0.3) + 
+  facet_grid(cols = vars(type))
+```
+Given what you have seen, how would you recommend proceeding with your test? Proceed in the way that you think is most reasonable. State the assumptions for your test, evaluate whether they are satisfied, and conduct the test, describing what you have learned about the statistics, and also what the practical meaning of these statistics are. 
+
+```{r test in-state vs out-of-state tuition cost}
+tuition_cost %>% 
+  filter(type == 'Private') %$% 
+  t.test(x=in_state_total, y=out_of_state_total)
+
+tuition_cost %>% 
+  filter(type == 'Public') %$%
+  t.test(x=in_state_total, y=out_of_state_total)
+
+tuition_cost %>% 
+  filter(type == 'For Profit') %$% 
+  t.test(x=in_state_total, y=out_of_state_total)
+```
+
 # Wilcox Rank Sum 
 
+Do public or private schools present greater salary potential? The variable `rank` in the `salary_potential` dataset contains the (opinionated) ranking of salary potential for each school within a state. Ignoring the state groupings -- which may be an important choice -- write the appropriate test for rank. 
+
+Begin by plotting a histogram of the data, so that you have a sense for the distributions. 
+
+```{r}
+tuition_cost %>% 
+  left_join(salary_potential) %>% 
+  select(rank, type) %>% 
+  filter(type %in% c('Public', 'Private')) %>% 
+  ggplot() + 
+  aes(x=rank, fill=type) + 
+  geom_histogram(position = 'dodge', bins = 25)
+
+```
+
+
+```{r}
+tuition_cost %>% 
+  left_join(salary_potential) %>% 
+  select(rank, type) %>% 
+  filter(type %in% c('Public', 'Private')) %$% 
+  wilcox.test(rank ~ type)
+```
 # Wilcox Sign Rank 
 
+We don't have an activity in for this presently. But, are there any questions that you can ask of the data that evaluate a paired, ordinal comparison? What are those, and what do you find? 
