@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 One-Sample t-test | Hypothesis Test Practice Activity</title>
+  <meta name="description" content="2 One-Sample t-test | Hypothesis Test Practice Activity" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 One-Sample t-test | Hypothesis Test Practice Activity" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 One-Sample t-test | Hypothesis Test Practice Activity" />
+  
+  
+  
+
+<meta name="author" content="Alex Hughes" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hypothesis-test-practice-activity.html"/>
+<link rel="next" href="two-sample-t-test.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="hypothesis-test-practice-activity.html"><a href="hypothesis-test-practice-activity.html"><i class="fa fa-check"></i><b>1</b> Hypothesis Test Practice Activity</a></li>
+<li class="chapter" data-level="2" data-path="one-sample-t-test.html"><a href="one-sample-t-test.html"><i class="fa fa-check"></i><b>2</b> One-Sample t-test</a></li>
+<li class="chapter" data-level="3" data-path="two-sample-t-test.html"><a href="two-sample-t-test.html"><i class="fa fa-check"></i><b>3</b> Two-Sample t-test</a></li>
+<li class="chapter" data-level="4" data-path="paired-t-test.html"><a href="paired-t-test.html"><i class="fa fa-check"></i><b>4</b> Paired t-test</a></li>
+<li class="chapter" data-level="5" data-path="wilcox-rank-sum.html"><a href="wilcox-rank-sum.html"><i class="fa fa-check"></i><b>5</b> Wilcox Rank Sum</a></li>
+<li class="chapter" data-level="6" data-path="wilcox-sign-rank.html"><a href="wilcox-sign-rank.html"><i class="fa fa-check"></i><b>6</b> Wilcox Sign Rank</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hypothesis Test Practice Activity</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="one-sample-t-test" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> One-Sample t-test</h1>
+<p>What was the cost of tuition for the 1985-1986 school year, in current dollars, for public schools?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="one-sample-t-test.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## this query will return a list of the costs for all institution types. </span></span>
+<span id="cb5-2"><a href="one-sample-t-test.html#cb5-2" aria-hidden="true" tabindex="-1"></a>historical_tuition <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="one-sample-t-test.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="st">&#39;1985-86&#39;</span> <span class="sc">&amp;</span> tuition_type <span class="sc">==</span> <span class="st">&#39;All Current&#39;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 4
+##   type             year    tuition_type tuition_cost
+##   &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt;               &lt;dbl&gt;
+## 1 All Institutions 1985-86 All Current          4885
+## 2 Public           1985-86 All Current          3571
+## 3 Private          1985-86 All Current          8885</code></pre>
+<p>Can you directly select the values that are shown in this table? Specifically, suppose that you are interested in the following question:</p>
+<blockquote>
+<p>Has the cost of tuition for public schools changed since 1985?</p>
+</blockquote>
+<p>In order to accomplish this, start from the query written above, but add additional conditions to <code>filter</code> on, and also <code>select</code> only the columns that you are interested in.</p>
+<p>Once you have formulated your “query”, save the resulting values into a numeric object that is called <code>public_school_cost_1985</code>. Note that this will require you to convert the type from a data.frame to a numeric value.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="one-sample-t-test.html#cb7-1" aria-hidden="true" tabindex="-1"></a>public_school_cost_1985 <span class="ot">&lt;-</span> historical_tuition <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="one-sample-t-test.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb7-3"><a href="one-sample-t-test.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="st">&#39;1985-86&#39;</span> <span class="sc">&amp;</span> tuition_type <span class="sc">==</span> <span class="st">&#39;All Current&#39;</span> <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">&#39;Public&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="one-sample-t-test.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(tuition_cost) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="one-sample-t-test.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() <span class="co"># This last line is to store the value outside a data.frame.</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="one-sample-t-test.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## so that you can check your results, the value should be $3571.</span></span>
+<span id="cb8-2"><a href="one-sample-t-test.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(</span>
+<span id="cb8-3"><a href="one-sample-t-test.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;public school tuition is $3571&#39;</span>, </span>
+<span id="cb8-4"><a href="one-sample-t-test.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(public_school_cost_1985, <span class="dv">3571</span>)</span>
+<span id="cb8-5"><a href="one-sample-t-test.html#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Test passed 🌈</code></pre>
+<p>Now then, using data that is available to you, please test whether public school tuition has changed from 1985 to the present. In order to do you, you will have to select the appropriate rows and columns of data, and conduct the appropriate test for this data.</p>
+<ol style="list-style-type: decimal">
+<li>What is the appropriate test?</li>
+<li>What are the assumptions for this test?</li>
+<li>Are these assumptions for the test satisfied in this case?</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="one-sample-t-test.html#cb10-1" aria-hidden="true" tabindex="-1"></a>tuition_cost <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="one-sample-t-test.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">&#39;Public&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="one-sample-t-test.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(in_state_tuition) <span class="sc">%$%</span></span>
+<span id="cb10-4"><a href="one-sample-t-test.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(</span>
+<span id="cb10-5"><a href="one-sample-t-test.html#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span>in_state_tuition, </span>
+<span id="cb10-6"><a href="one-sample-t-test.html#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mu=</span>public_school_cost_1985</span>
+<span id="cb10-7"><a href="one-sample-t-test.html#cb10-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  in_state_tuition
+## t = 27.557, df = 1583, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 3571
+## 95 percent confidence interval:
+##  5862.216 6213.383
+## sample estimates:
+## mean of x 
+##  6037.799</code></pre>
+<ol style="list-style-type: decimal">
+<li>Are the tuition costs different?</li>
+<li>Is this a big difference or a little difference? What makes you think this?</li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hypothesis-test-practice-activity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="two-sample-t-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
