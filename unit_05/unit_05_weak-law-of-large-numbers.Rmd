@@ -12,7 +12,7 @@ library(ggplot2)
 library(patchwork)
 
 theme_set(theme_minimal())
-berkeley_blue <- '#003262'
+berkeley_blue   <- '#003262'
 california_gold <- '#FDB515'
 ```
 
@@ -238,11 +238,24 @@ $$
 
 ## Chevyshev Inequlaity for the Sample Average 
 
-The sample average, $\overline{X}$, is a random variable -- it is simply a summarising function of $X$ which is itself a random variable. Because of this, we can rewrite the classic statement of the Chevyshev inequality, just with a different (but known) statement of its sampling variance. 
+The sample average, $\overline{X}$, is a random variable -- it is simply a summarizing function of $X$ which is itself a random variable. Because of this, we can rewrite the classic statement of the Chevyshev inequality, just with a different (but known) statement of its sampling variance. 
 
-Note, that the sampling variance for $\overline{X}$, $V[\overline{X}] = \frac{V[X]}{n}$, which was proven just before the statement of Chebyshev's Inequality for the Sample Mean in the book. Then, using the definition and notation for standard deviation, we can write: 
+Note, that the sampling variance for $\overline{X}$, $V[\overline{X}] = \frac{V[X]}{n}$, which was proven just before the statement of Chebyshev's Inequality for the Sample Mean in the book. 
 
+In case you don't remember that statement, it looks something like this: 
 
+$$
+\begin{aligned} 
+  V[\overline{X}] &= V\left[\frac{1}{n} \sum_{i=1}^{n} X_{i}\right] \\ 
+    &= \frac{1}{n^2}\  V \left[ \sum_{i=1}^{n} X_{i}\right] & (\text{variance properties})\\ 
+    &= \frac{1}{n^2} \sum_{i=1}^{n} V[X_{i}] & (\text{independent samples}) \\ 
+    &= \frac{1}{n^2} \sum_{i=1}^{n} V[X] & (\text{identical distribution}) \\ 
+    &= \frac{n}{n^2} V[X] & (\text{sum properties}) \\
+    &= \frac{1}{n} V[X]
+\end{aligned}   
+$$
+
+Then, using the definition and notation for standard deviation, we can write: 
 
 $$
   \begin{aligned}

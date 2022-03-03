@@ -191,15 +191,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>## [1] 1
+<pre><code>## [1] 0
 ## [1] 1
-## [1] 1
+## [1] 0
 ## [1] 0</code></pre>
 <p>Suppose that we wanted to toss more than one coin? It would, obviously get pretty cumbersome if we had to issue this <code>toss_coin(times=1, coins=1)</code> command say, 1000 times. Lucky for us, we’ve written the function so that it generalizes to more coins! To toss ten coins, we can call for <code>toss_coin(times=1, coins=10)</code>, and for a million, <code>toss_coin(times=1, coins=1e6)</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">1</span>, <span class="at">coins=</span><span class="dv">10</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">toss_coin</span>(<span class="at">times=</span><span class="dv">10</span>, <span class="at">coins=</span><span class="dv">1</span>, <span class="at">prob_of_heads=</span><span class="fl">0.6</span>)</span></code></pre></div>
-<pre><code>## [1] 5
-##  [1] 1 1 0 0 0 1 0 1 0 0</code></pre>
+<pre><code>## [1] 4
+##  [1] 0 1 1 1 1 1 0 1 0 1</code></pre>
 <p>Notice that if we increase the number of <code>times</code> it is like tossing the same coin a larger number of times; and if we increase the number of coins, it is like increaseing the number of coins that we are tossing at any single time. These actually have the same interpretation, since all the tosses are independent of all the other tosses, but it <em>does</em> change the way the data is represented to us.</p>
 </div>
 <div id="tossing-more-coins" class="section level2" number="1.3">
@@ -235,12 +235,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can view the first six rows of this data by calling for the <code>head()</code> of the dataframe, and see that things seem sensible.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(toss_data)</span></code></pre></div>
 <pre><code>##   id coins heads   average
-## 1  1     1     0 0.0000000
+## 1  1     1     1 1.0000000
 ## 2  2     2     1 0.5000000
-## 3  3     3     2 0.6666667
-## 4  4     4     4 1.0000000
+## 3  3     3     1 0.3333333
+## 4  4     4     2 0.5000000
 ## 5  5     5     3 0.6000000
-## 6  6     6     6 1.0000000</code></pre>
+## 6  6     6     3 0.5000000</code></pre>
 <p>But, simply looking at the rows of data isn’t presenting this data in its most compelling way. Instead, this is absolutely the place for a plot.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>toss_data <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
@@ -343,8 +343,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="chevyshev-inequlaity-for-the-sample-average" class="section level2" number="1.8">
 <h2><span class="header-section-number">1.8</span> Chevyshev Inequlaity for the Sample Average</h2>
-<p>The sample average, <span class="math inline">\(\overline{X}\)</span>, is a random variable – it is simply a summarising function of <span class="math inline">\(X\)</span> which is itself a random variable. Because of this, we can rewrite the classic statement of the Chevyshev inequality, just with a different (but known) statement of its sampling variance.</p>
-<p>Note, that the sampling variance for <span class="math inline">\(\overline{X}\)</span>, <span class="math inline">\(V[\overline{X}] = \frac{V[X]}{n}\)</span>, which was proven just before the statement of Chebyshev’s Inequality for the Sample Mean in the book. Then, using the definition and notation for standard deviation, we can write:</p>
+<p>The sample average, <span class="math inline">\(\overline{X}\)</span>, is a random variable – it is simply a summarizing function of <span class="math inline">\(X\)</span> which is itself a random variable. Because of this, we can rewrite the classic statement of the Chevyshev inequality, just with a different (but known) statement of its sampling variance.</p>
+<p>Note, that the sampling variance for <span class="math inline">\(\overline{X}\)</span>, <span class="math inline">\(V[\overline{X}] = \frac{V[X]}{n}\)</span>, which was proven just before the statement of Chebyshev’s Inequality for the Sample Mean in the book.</p>
+<p>In case you don’t remember that statement, it looks something like this:</p>
+<p><span class="math display">\[
+\begin{aligned} 
+  V[\overline{X}] &amp;= V\left[\frac{1}{n} \sum_{i=1}^{n} X_{i}\right] \\ 
+    &amp;= \frac{1}{n^2}\  V \left[ \sum_{i=1}^{n} X_{i}\right] &amp; (\text{variance properties})\\ 
+    &amp;= \frac{1}{n^2} \sum_{i=1}^{n} V[X_{i}] &amp; (\text{independent samples}) \\ 
+    &amp;= \frac{1}{n^2} \sum_{i=1}^{n} V[X] &amp; (\text{identical distribution}) \\ 
+    &amp;= \frac{n}{n^2} V[X] &amp; (\text{sum properties}) \\
+    &amp;= \frac{1}{n} V[X]
+\end{aligned}   
+\]</span></p>
+<p>Then, using the definition and notation for standard deviation, we can write:</p>
 <p><span class="math display">\[
   \begin{aligned}
       Pr\big[\left|X - E[X] \right| \geq \epsilon\sigma[X]  \big] &amp; \leq \frac{1}{\epsilon^2} \\
@@ -422,7 +434,7 @@ P\left[|\overline{X} - E[X] | \geq 0.01 \right] \leq \frac{.24}{0.01n}
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>one_thousand_samples <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="at">size=</span><span class="dv">1000</span>, <span class="at">prob=</span><span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">1000</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">mean</span>(one_thousand_samples <span class="sc">&lt;=</span> <span class="fl">0.56</span>) <span class="sc">+</span> <span class="fu">mean</span>(one_thousand_samples <span class="sc">&gt;=</span> <span class="fl">0.64</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>probs</span></code></pre></div>
-<pre><code>## [1] 0.01056</code></pre>
+<pre><code>## [1] 0.01046</code></pre>
 <p>We interpret this in the following way:</p>
 <ul>
 <li>The Chebyshev Inequality for the sample average says that the probability of getting a sample average that is more than <span class="math inline">\(0.04\)</span> away from the true population expectation of <span class="math inline">\(0.60\)</span> is <span class="math inline">\(0.15\)</span>, or <span class="math inline">\(15\%\)</span>. This is a nice guarantee to have, and one that exists no matter the distribution of the random variable.</li>
@@ -462,11 +474,11 @@ P\left[|\overline{X} - E[X] | \geq 0.01 \right] \leq \frac{.24}{0.01n}
 <p>To evaluate this guarantee, again simulate a series of draws with eight coins being tossed.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>thirty_tosses <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">30</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(thirty_tosses <span class="sc">&lt;</span> <span class="fl">0.8</span>) <span class="sc">-</span> <span class="fu">mean</span>(thirty_tosses <span class="sc">&lt;</span> <span class="fl">0.4</span>)</span></code></pre></div>
-<pre><code>## [1] 0.974</code></pre>
+<pre><code>## [1] 0.9749</code></pre>
 <p>We see that Chebyshev is actually requiring us to take more samples than are actually necessary, if we knew the actual Bernoulli distribution that underlies the data generating process. Indeed, after a little bit of trial and error, I was able to figure out that about nine samples is enough data to provide this guarantee.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nine_tosses <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">9</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">/</span> <span class="dv">9</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(nine_tosses <span class="sc">&lt;</span> <span class="fl">0.8</span>) <span class="sc">-</span> <span class="fu">mean</span>(nine_tosses <span class="sc">&lt;</span> <span class="fl">0.4</span>)</span></code></pre></div>
-<pre><code>## [1] 0.8317</code></pre>
+<pre><code>## [1] 0.8286</code></pre>
 </div>
 </div>
             </section>
