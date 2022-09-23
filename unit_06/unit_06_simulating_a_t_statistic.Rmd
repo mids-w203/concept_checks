@@ -3,34 +3,166 @@ title: "Simulating a t-Statistic"
 output: html_notebook
 ---
 
-In this activity, we'll simulate the distribution of the t-statistic.
+```{r} 
+library(ggplot2)
+library(patchwork)
+library(magrittr)
 
-First, let's assume that we know the true population standard deviation.  For this exercise, it will always be 5.  The following function takes a sample and computes a z-statistic for a reference mean of 0, using the true population standard deviation.
+theme_set(theme_minimal())
+```
+
+In this activity, you will simulate the distribution of the t-statistic.
+
+First, let's assume that we know the true population standard deviation: **Suppose that it is known to be 5**.  How do we know this? It is known. (Game of Thrones throwback, anyone?)
+
+# Compute a statistic
+
+The following function takes a sample and computes a z-statistic for a reference mean of 0, using the true population standard deviation.
 
 ```{r}
-statistic = function(sample){
-  sample_mean = mean(sample)
-  n = length(sample)
-  return(sample_mean / (5 / sqrt(n)))
+statistic <- function(sample, what_stat='z'){
+  ## input: single data series
+  ## args: 
+  ##   - what_stat: 
+  ##     - z: will compute a z-statistic with a known sd
+  ##     - t: will compute a t-stat by estimating the sample sd
+  ## return: 
+  ##   - statistic that is chosen by what_stat arg
+  
+  sample_mean <- mean(sample)
+  n           <- length(sample)
+
+  if(what_stat == 'z') {
+    standard_error <- (5 / sqrt(n))
+    stat_ <- sample_mean / standard_error
+  } else if(what_stat == 't') { 
+    estimated_standard_error <- 'fill this in (it will involve `sd()`)'
+    stat_ <- sample_mean / estimated_standard_error
+  } else { 
+    stop('what_stat must be either z or t')
+  }
+  
+  return(stat_)
 }
 ```
 
-Next, the following code simulates an experiment many times.  In each experiment, a sample of size n is drawn from a normal distribution with mean 0 and standard deviation 5.  The a statistic is calculated using the above function.  Finally, the results are plotted against the standard normal curve, in red.
+# Run Code One Time 
+
+## Using Intermediate Objects
+In order to understand what is happening in this code, consider running it once: 
 
 ```{r}
-library(ggplot2)
-n = 7
-data = data.frame(statistic = replicate(100000, statistic(rnorm(n, 0, 5))))
-ggplot(data, aes(x = statistic)) + 
-    geom_histogram(aes(y =..density..),
-                   breaks = seq(-3, 3, by = .1), 
-                   colour = "black", 
-                   fill = "white") +
-   xlim(c(-3,3)) +
-stat_function(fun = dnorm, color = 'red')
+## draw some sample data and store it in an object
+sample_data <- rnorm(n=10, mean=0, sd=1)
+
+## calculate the statistic on the data that is stored in that object
+statistic(sample=sample_data, what_stat = 'z')
 ```
 
-1. Change the statistic function above so that it does not use the true population standard deviation (which a researcher never knows), but instead uses the sample standard deviation.
+## Using the Magrittr pipe
 
-2. Compare the resulting distribution against the normal curve.  See how the difference changes if you increase n and decrease n.
+Here, we are going to mix together some programming thoughts, with some statistics thoughts. In the code chunk above, you'll notice that we are creating an object called `sample_data` that is just a stopping point in the process of creating the eventual object that we would *actually* like to have, which is the value that is returned by the function `statistic`. 
+
+The thing is, we don't **really** want to have that object laying around. On the one hand, it creates code that has unnecessary things for us to remember (and to avoid accidentally mis-using); on the other hand, it kind of breaks the nice "functional style" of the language. 
+
+(Students who are coming from a background that involves programming on the command line will recognize the "pipe": `|` as a useful way to chain together a series of commands that they might want to issue. This pipe in `R` uses the very same logic.)
+
+The `R` package `magrittr` provides an additional function -- the "pipe" -- that allows you to issue a function, and "pipe forward" the results of that function into another function. With these pipes, you can create a series of actions that follow one another, that can be read by a human with some natural flow and that can also be parsed by the `R` language. 
+
+To use the pipe in this case, we might write: 
+
+```{r}
+rnorm(n=10, mean=0, sd=1) %>% 
+  statistic(what_stat='z')
+```
+
+Which might be read aloud as, "take 10 random samples from the normal distribution, with mean zero and standard deviation one, **AND THEN** apply the statistic function to return a z-statistic. 
+
+The pipe here is functioning as the **AND THEN** statement that is connecting the results of one function, `rnorm`, with the another, `statistic`. It is the literal set of characters `%>%` (percent - greater than - percent). Why? Because `R` is an ugly language and uses these decorative `% %` operators as ways to write special functions. :shrug:
+
+(One, finer point: the pipe implicitly passes forward the result of the first function into the first positional argument of the second function -- in this case, the `rnorm` is going into `statistic(sample = .)` where the `.` is the location that the `rnorm` call is ending up. It is possible to make this explicit, which is useful if the argument that you need to land on is **not** in the first position of the second function.)
+
+Could you, instead, simply nest your functions together to avoid creating the temporary object? Sure you could. That would look like the following: `statistic(sample=rnorm(n=10, mean=0, sd=1), what_stat='z')` which is perfectly acceptable code in the language. However, as a reader of the code, there are multiple steps that are happening at once, with several different arguments being passed to functions. And, if the set of nested functions were to include more than two, things could very quickly get out of hand. 
+
+# Run Code Many Times
+
+Next, the following code simulates an experiment many times.  In each experiment, the following happens: 
+
+- A sample of size $n$ is drawn from a normal distribution with mean 0, and standard deviation 5; 
+- Then a statistic is calculated using the above function; 
+- Finally, the results are plotted against the standard normal curve (in "coral" aka pink), and the t-distribution (in "sea-foam" aka green-blue). 
+
+```{r, warning=FALSE, message=FALSE}
+n <- 3
+
+stat_z <- replicate(
+  n    = 100000, 
+  expr = rnorm(n, 0, 5) %>% 
+    statistic(what_stat = 'z')
+  )
+
+plot_z <- ggplot() + 
+  geom_histogram(aes(x = stat_z, y = ..density..)) + 
+  geom_function(aes(color = 'z'), fun = dnorm) + 
+  geom_function(aes(color = 't'), fun = dt, args = list(df = n)) + 
+  labs(color = 'statistic') + 
+  lims(x = c(-3,3))
+
+plot_z
+```
+
+Is there a way that you can envision re-writing the code above using a `%>%`, so that you do not have to make the intermediate objects `stat_z`? 
+
+- What, if anything, do you notice about the relationship between the histogram (which is generated using the *known* standard deviation) and the two distributions? Which of these distributions seems to be more closely matching the histogram? 
+
+# Modify `statistic` 
+
+Navigate back up in the code here, and make a change to the `statistic` function. Change what is happening in the `t` static block so that this block would actually run. 
+
+    } else if(what_stat == 't') { 
+    estimated_standard_error <- 'fill this in (it will involve `sd()`)'
+    stat_ <- sample_mean / estimated_standard_error
+    
+To be even more specific, change what is on line 39 above so that it produces the estimated standard error, given the data. To do so, you will have to remove the part of the line that says 'fill this in... (it will involve `sd()`)' and replace it with the actual code that will produce the estimated standard error. 
+
+After you have made this change, you will have to that chunk of code to overwrite the function with the new actions that you want it to perform. Once you have made that change, you can run the code below to simulate 10,000 samples from a normal distribution and computing a t-statistic. 
+
+```{r}
+n <- 3
+
+stat_t <- replicate(
+  n    = 100000, 
+  expr = rnorm(n, 0, 5) %>% 
+    statistic(what_stat = 't')
+)
+
+plot_t <- ggplot() + 
+  geom_histogram(aes(x = stat_t, y = ..density..)) + 
+  geom_function(aes(color = 'z'), fun = dnorm) + 
+  geom_function(aes(color = 't'), fun = dt, args = list(df = n)) + 
+  labs(color = 'statistic') + 
+  lims(x = c(-3,3))
+
+plot_t
+```
+
+A nice way for arranging plots next to one another uses the `patchwork` library. Because we have two plots -- `plot_z` and `plot_t` -- both stored as objects, we can print them next to one another using the following code. 
+
+```{r, message=FALSE, warning=FALSE}
+plot_z | plot_t
+```
+
+But, to my eye, that doesn't communicate exactly what I want it to. (For things like this it can be hard to know ahead of time what the most effective plot to communicate will be.) So, instead, let's try to stack these plots one above another. To do so, you can use the following code: (Notice that the only difference is that to put things side by side, one uses a `|` call while to put them one above another, one uses a `/` call. )
+
+```{r, message=FALSE, warning=FALSE} 
+plot_z / plot_t
+```
+
+# Now Do the Actual Work for this Study 
+
+If you've made it this far, you've actually got a lot that you can do! Here's the task for you: study what happens to these distributions as the **size of the sample** (which is stored in the object `n` above) increases. 
+
+Write (or just copy paste and make a few changes) code below that does the same work as you have done above, but now set the size of the sample to be 10, 100, and 1,000. In addition to the two histograms above, you should produce six more (two for each sample size). 
+
+As the sample size increases, what seems to happen to the distributions? 
 
