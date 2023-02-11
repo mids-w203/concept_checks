@@ -12,7 +12,8 @@ library(ggplot2)
 library(patchwork)
 
 theme_set(theme_minimal())
-berkeley_blue <- '#003262'
+
+berkeley_blue   <- '#003262'
 california_gold <- '#FDB515'
 ```
 
