@@ -3,10 +3,29 @@ title: "Visualizing Confidence Intervals"
 output: html_document
 ---
 
-```{r load packages}
+```{r load packages, warning=FALSE, message=FALSE}
 library(dplyr)
 library(ggplot2)
 ```
+
+# Some Grounding Advice 
+
+Larry Wasserman, in *All of Statistics* writes the following, useful bit about confidence intervals: 
+
+> "There is much confusion about how to interpret a confidence interval. A confidence interval is not a probability statement about a population parameter, since that parameter is a fixed quantity, not a random variable."
+
+That is, if your goal is to produce an estimate of the average height of a population, there is no randomness to that specific value. In this sense, just as the expectation operator maps to a single value, so too is the target of our estimation a single, fixed value. 
+
+Wasserman continues, 
+
+> "Some texts interpret confidence intervals as follows: if I repeat the experiment over and over, the interval will contain the parameter 95 percent of the time. This is correct but useless since we rarely repeat the same experiment over and over. A better interpretation is this:
+
+> - On day 1, you collect data and construct a 95 percent confidence interval for a parameter $\theta{1}$. 
+> - On day 2, you collect new data and construct a 95 percent confidence interval for an unrelated parameter $\theta_{2}$. 
+> - On day 3, you collect new data and construct a 95 percent confidence interval for an unrelated parameter $\theta_{3}$. 
+> - You continue this way constructing confidence intervals for a sequence of unrelated parameters $\theta_{1}, \theta_{2}, \dots$.  
+
+> Then 95 percent of your intervals will trap the true parameter value. There is no need to introduce the idea of repeating the same experiment over and over."
 
 
 In this activity, we'll simulate a set of experiments, drawing data repeatedly from a distribution, then visualize the confidence intervals that result.
@@ -31,7 +50,7 @@ confidence_interval = function(sample) {
   critical_value <- qt(0.025, df=n-1)
   
   low_ci  <- sample_mean + (sample_sd / sqrt(n)) * critical_value
-  high_ci <- sample_mean - (sample_sd / sqrt(n)) * qt(0.025, df=n-1)
+  high_ci <- sample_mean - (sample_sd / sqrt(n)) * critical_value
 
   return(
     c(low_ci, high_ci)
@@ -74,6 +93,9 @@ run_plots <- function(number_of_units = 5) {
   confidence_intervals <- confidence_intervals %>% 
     mutate(captured = low < 0 & high > 0)
   
+  ## below is a lot of fiddly plotting to make things turn out 
+  ## just exactly right. don't worry too much about reading the internnals 
+  ## of this plot call. 
   plot(
     NULL, 
     type="n", pch=19,
@@ -103,11 +125,18 @@ run_plots <- function(number_of_units = 5) {
       expression(paste(mu," Not Captured"))), 
     fill = c(3,2)
     )
+  ## this is the end of the fiddly plotting
 }
 ```
 
 ```{r}
-run_plots()
+run_plots(number_of_units = 5)
 ```
 
-Try to answer this question in your own words: what does 95% confidence mean?
+Try to answer this question in your own words: 
+
+- What does 95% confidence mean?
+- Does the confidence interval's *range* (i.e. the values for $\mu$ that are the high- and low-points) change as the `number_of_units` changes? If so, how does it change? 
+- Does the number of confidence intervals that do **not** capture the true $\mu$ changeg as the `number_of_units` changes? 
+
+Then, return back to bCourses to answer questions about concepts related to the confidence interval. 
