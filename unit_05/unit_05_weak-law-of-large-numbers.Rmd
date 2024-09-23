@@ -146,7 +146,7 @@ coin_plot <- function(times, coins, prob_of_heads) {
     )
 }
 
-plot_0.6 <- coin_plot(times=1, coins=1000, prob_of_heads=1)
+plot_0.6 <- coin_plot(times=1, coins=1000, prob_of_heads=0.6)
 plot_0.6
 ```
 
@@ -154,6 +154,7 @@ This seems to be doing what we want it to do! What do you think will happen if t
 
 - What will this look like if the probability of heads is $1.0$? 
 - What will this look like if the probability of heads is $0.9$? 
+- What will this look like if the probability of heads is $0.5$? 
 - What will this look like if the probability of heads is $0.2$? 
 
 We will plot these on the next page. 
@@ -163,9 +164,10 @@ We will plot these on the next page.
 ```{r many plots, fig.height=10, dev.args=list(bg = 'transparent')}
 plot_1.0 <- coin_plot(times=1, coins=1000, prob_of_heads=1.0)
 plot_0.9 <- coin_plot(times=1, coins=1000, prob_of_heads=0.9)
+plot_0.5 <- coin_plot(times=1, coins=1000, prob_of_heads=0.9)
 plot_0.2 <- coin_plot(times=1, coins=1000, prob_of_heads=0.2)
 
-plot_1.0 / plot_0.9 / plot_0.2 + 
+(plot_1.0 + plot_0.9 ) / (plot_0.5 + plot_0.2) + 
   plot_layout(guides = 'collect')
 ```
 
@@ -228,7 +230,7 @@ Written this way we can see that to remove $c$ from the left side of the inequal
 
 If you reason about it for a moment, this behavior is reasonable. 
 
-Suppose that you have some random variable, and you ask for the probability that it is larger than some value. If that value is larger (i.e. $c$ is positive and larger than one), then the probability should be smaller. If that v alue is smaller (i.e. $c$ is positive, but smaller than one) then the probabliy should be larger. 
+Suppose that you have some random variable, and you ask for the probability that it is larger than some value. If that value is larger (i.e. $c$ is positive and larger than one), then the probability should be smaller. If that value is smaller (i.e. $c$ is positive, but smaller than one) then the probability should be larger. 
 
 To get closer to how we will use this fact in a moment, note that we could rewrite the statement as, 
 
@@ -239,7 +241,7 @@ $$
 
 ## Chevyshev Inequlaity for the Sample Average 
 
-The sample average, $\overline{X}$, is a random variable -- it is simply a summarising function of $X$ which is itself a random variable. Because of this, we can rewrite the classic statement of the Chevyshev inequality, just with a different (but known) statement of its sampling variance. 
+The sample average, $\overline{X}$, is a random variable -- it is simply a summarizing function of $X$ which is itself a random variable. Because of this, we can rewrite the classic statement of the Chevyshev inequality, just with a different (but known) statement of its sampling variance. 
 
 Note, that the sampling variance for $\overline{X}$, $V[\overline{X}] = \frac{V[X]}{n}$, which was proven just before the statement of Chebyshev's Inequality for the Sample Mean in the book. Then, using the definition and notation for standard deviation, we can write: 
 
