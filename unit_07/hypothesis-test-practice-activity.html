@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Hypothesis Test Practice Activity</title>
+  <meta name="description" content="Hypothesis Test Practice Activity" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Hypothesis Test Practice Activity" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Hypothesis Test Practice Activity" />
+  
+  
+  
+
+<meta name="author" content="Alex Hughes" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="one-sample-t-test.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="hypothesis-test-practice-activity.html"><a href="hypothesis-test-practice-activity.html"><i class="fa fa-check"></i><b>1</b> Hypothesis Test Practice Activity</a></li>
+<li class="chapter" data-level="2" data-path="one-sample-t-test.html"><a href="one-sample-t-test.html"><i class="fa fa-check"></i><b>2</b> One-Sample t-test</a></li>
+<li class="chapter" data-level="3" data-path="two-sample-t-test.html"><a href="two-sample-t-test.html"><i class="fa fa-check"></i><b>3</b> Two-Sample t-test</a></li>
+<li class="chapter" data-level="4" data-path="paired-t-test.html"><a href="paired-t-test.html"><i class="fa fa-check"></i><b>4</b> Paired t-test</a></li>
+<li class="chapter" data-level="5" data-path="wilcox-rank-sum.html"><a href="wilcox-rank-sum.html"><i class="fa fa-check"></i><b>5</b> Wilcox Rank Sum</a></li>
+<li class="chapter" data-level="6" data-path="wilcox-sign-rank.html"><a href="wilcox-sign-rank.html"><i class="fa fa-check"></i><b>6</b> Wilcox Sign Rank</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hypothesis Test Practice Activity</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Hypothesis Test Practice Activity</h1>
+<p class="author"><em>Alex Hughes</em></p>
+<p class="date"><em>10/4/2021</em></p>
+</div>
+<div id="hypothesis-test-practice-activity" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Hypothesis Test Practice Activity</h1>
+<p>In this short activity, you’re going to write, and execute a short series of hypothesis tests using the <code>R</code> estimating framework.</p>
+<p>The data that you will be using comes from <em>Tidy Tuesday</em> and is about the costs of university education for undergraduates.</p>
+<p>This data collection effort is described in detail <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-10/readme.md#tuition_costcsv">on Github</a>, but includes the following tables:</p>
+<ul>
+<li><code>tuition_cost</code></li>
+<li><code>tuition_income</code></li>
+<li><code>historial_tuition</code></li>
+<li><code>salary_potential</code></li>
+<li><code>diversity_school</code></li>
+</ul>
+<p>We are going to ask as series of questions that can be answered with the constrained set of tests that we have available to use from the course.</p>
+<p>For each of the questions, the data <em>is</em> available, but you might have to join a table or two, recode a variable or two, or otherwise do a little bit of data work to get the data ready to run the test.</p>
+<p>For each test that you conduct, please (a) evaluate the assumptions of the test to see if the data satisfy these assumptions; (b) state the null hypothesis that is being evaluated; (c) state the criteria that would lead you to reject the null hypothesis; (d) conduct and interpret the test; and (e) tell us whether the difference you observe between the groups is an <em>important</em> one.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="hypothesis-test-practice-activity.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="hypothesis-test-practice-activity.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-3"><a href="hypothesis-test-practice-activity.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(testthat)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="hypothesis-test-practice-activity.html#cb2-1" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/&#39;</span></span>
+<span id="cb2-2"><a href="hypothesis-test-practice-activity.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="hypothesis-test-practice-activity.html#cb2-3" aria-hidden="true" tabindex="-1"></a>tuition_cost       <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(base_url, <span class="st">&#39;tuition_cost.csv&#39;</span>))</span>
+<span id="cb2-4"><a href="hypothesis-test-practice-activity.html#cb2-4" aria-hidden="true" tabindex="-1"></a>tuition_income     <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(base_url, <span class="st">&#39;tuition_income.csv&#39;</span>))</span>
+<span id="cb2-5"><a href="hypothesis-test-practice-activity.html#cb2-5" aria-hidden="true" tabindex="-1"></a>salary_potential   <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(base_url, <span class="st">&#39;salary_potential.csv&#39;</span>))</span>
+<span id="cb2-6"><a href="hypothesis-test-practice-activity.html#cb2-6" aria-hidden="true" tabindex="-1"></a>historical_tuition <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(base_url, <span class="st">&#39;historical_tuition.csv&#39;</span>))</span>
+<span id="cb2-7"><a href="hypothesis-test-practice-activity.html#cb2-7" aria-hidden="true" tabindex="-1"></a>diversity_school   <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(base_url, <span class="st">&#39;diversity_school.csv&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="hypothesis-test-practice-activity.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tuition_income)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   name                   state total_price  year campus  net_cost income_lvl    
+##   &lt;chr&gt;                  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;         
+## 1 Piedmont Internationa… NC          20174  2016 On Cam…   11475  0 to 30,000   
+## 2 Piedmont Internationa… NC          20174  2016 On Cam…   11451  30,001 to 48,…
+## 3 Piedmont Internationa… NC          20174  2016 On Cam…   16229  48_001 to 75,…
+## 4 Piedmont Internationa… NC          20174  2016 On Cam…   15592  75,001 to 110…
+## 5 Piedmont Internationa… NC          20514  2017 On Cam…   11668. 0 to 30,000   
+## 6 Piedmont Internationa… NC          20514  2017 On Cam…   11644. 30,001 to 48,…</code></pre>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="one-sample-t-test.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
