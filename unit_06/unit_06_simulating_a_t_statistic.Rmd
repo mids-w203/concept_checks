@@ -90,7 +90,7 @@ Next, the following code simulates an experiment many times.  In each experiment
 
 - A sample of size $n$ is drawn from a normal distribution with mean 0, and standard deviation 5; 
 - Then a statistic is calculated using the above function; 
-- Finally, the results are plotted against the standard normal curve (in "coral" aka pink), and the t-distribution (in "sea-foam" aka green-blue). 
+- Finally, the results are plotted against the standard normal curve (in "sea-foam" aka green-blue), and the t-distribution (in "coral" aka pink). 
 
 ```{r, warning=FALSE, message=FALSE}
 n <- 3
